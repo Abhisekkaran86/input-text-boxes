@@ -4,10 +4,18 @@ import SearchBox from "./SearchBox";
 const App = () => {
   const [search, setSearch] = useState("");
   const [filteredOptions, setFilteredOptions] = useState([]);
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOptionId, setSelectedOptionId] = useState(null); // Store only ID
   const [showDropdown, setShowDropdown] = useState(false);
 
-  const options = ["React", "Node", "mongo", "Express", "Php", "MySql", "aws"];
+  const options = [
+    { id: 1, value: "React" },
+    { id: 2, value: "Node" },
+    { id: 3, value: "Mongo" },
+    { id: 4, value: "Express" },
+    { id: 5, value: "Php" },
+    { id: 6, value: "MySql" },
+    { id: 7, value: "AWS" },
+  ];
 
   // Handle input change and filter options dynamically
   const handleSearchChange = (value) => {
@@ -18,7 +26,7 @@ const App = () => {
       setShowDropdown(false);
     } else {
       const filtered = options.filter((option) =>
-        option.toLowerCase().includes(value.toLowerCase())
+        option.value.toLowerCase().includes(value.toLowerCase())
       );
       setFilteredOptions(filtered);
       setShowDropdown(true);
@@ -26,10 +34,12 @@ const App = () => {
   };
 
   // Handle selecting an option
-  const handleSelect = (option) => {
-    setSelectedOption(option);
-    setSearch(option);
+  const handleSelect = (id) => {
+    setSelectedOptionId(id); // Store only the selected option's ID
+    const selectedOption = options.find((option) => option.id === id);
+    setSearch(selectedOption?.value || ""); // Update input value with the corresponding value
     setShowDropdown(false);
+    console.log(id)
   };
 
   return (
@@ -42,11 +52,14 @@ const App = () => {
         showDropdown={showDropdown}
         filteredOptions={filteredOptions}
         handleSelect={handleSelect}
-        placeholder="Search for a fruit..."
+        placeholder="Search for a technology..."
       />
-      {selectedOption && (
+      {selectedOptionId !== null && (
         <div className="mt-4 text-gray-700">
-          Selected: <strong>{selectedOption}</strong>
+          Selected:{" "}
+          <strong>
+            {options.find((option) => option.id === selectedOptionId)?.value}
+          </strong>
         </div>
       )}
     </div>

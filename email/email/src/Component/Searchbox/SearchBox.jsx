@@ -22,13 +22,15 @@ const SearchBox = ({
       {showDropdown && (
         <ul className="absolute w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-md max-h-48 overflow-auto z-10">
           {filteredOptions.length > 0 ? (
-            filteredOptions.map((option, index) => (
+            filteredOptions.map((option) => (
               <li
-                key={index}
-                onClick={() => handleSelect(option)}
+                key={option.id} // Use id as the key
+                onClick={() => handleSelect(option.id)} // Pass only the id back to parent
                 className="p-3 hover:bg-blue-100 cursor-pointer"
+                
+                
               >
-                {option}
+                {option.value}
               </li>
             ))
           ) : (
