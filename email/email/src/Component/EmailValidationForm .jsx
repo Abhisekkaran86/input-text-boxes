@@ -43,16 +43,16 @@ export default function EmailValidation() {
         onChange={handleChange}
         onBlur={handleBlur}
         error={touched ? error : ""}
-        // Pass Tailwind CSS classes dynamically
+        
         containerClass="mb-4"
         labelClass="block text-gray-700 font-medium mb-2"
         className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2"
       />
-      {/* Error message shown only after blur */}
+      
       {touched && error && (
         <p className="text-red-500 text-sm mt-2">{error}</p>
       )}
-      {/* Success message if valid */}
+     
       {!error && touched && (
         <p className="text-green-500 text-sm mt-2">Email is valid!</p>
       )}
